@@ -12,7 +12,10 @@ if [[ $? != 0 ]]; then
   exit 1
 fi
 
+cd $BUILD_DIR
+
 # Run the CTest suite
+echo -e "\nmake test"
 make test
 failed=$?
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(fii)
+project(${APP_EXE_NAME})
 
 # This project uses C11 Standard
 set( CMAKE_C_STANDARD 11 )
@@ -11,14 +11,14 @@ set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
 SET ( SRC_MAIN main.c )
 
 # Setup main executable for this project
-add_executable(fii ${SRC_MAIN})
+add_executable(${APP_EXE_NAME} ${SRC_MAIN})
 
 include_directories(
   ${APP_ROOT}/src)
 
 # Link Library support
-target_link_libraries( fii factorii )
+target_link_libraries( ${APP_EXE_NAME} ${APP_LIB_NAME} )
 
-install(TARGETS fii
+install(TARGETS ${APP_EXE_NAME}
   RUNTIME DESTINATION bin)
 

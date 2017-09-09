@@ -41,11 +41,6 @@ add_subdirectory("src/main")
 # Lots of tests :-)
 add_subdirectory("tests")
 
-# Enable CTests suite reporting
-enable_testing ()
-
-add_test(NAME test-main COMMAND test-main)
-
 # Setup auto generation of version.h during build
 configure_file (
   "${APP_ROOT}/src/version.h.in"

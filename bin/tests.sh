@@ -7,6 +7,8 @@ source $BIN/vars.sh
 # Build with debug flag on
 DEBUG=true $BIN/build.sh
 
+EXECUTE_SPECIFIC_TEST=${1:-}
+
 # Don't run tests if we can't even build
 if [[ $? != 0 ]]; then
   exit 1
@@ -19,7 +21,7 @@ echo -e "\nmake test"
 make test
 failed=$?
 
-if [[ "$1" != "" ]]; then
+if [[ "$EXECUTE_SPECIFIC_TEST" != "" ]]; then
   # Clear test results from the screen if they failed, as we are
   # already inspecting the tests for failure.
   if [[ $failed != 0 ]]; then

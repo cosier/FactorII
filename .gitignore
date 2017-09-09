@@ -10,6 +10,8 @@ vendor
 vendor/build
 bin/fii
 
+src/version.h
+
 
 # Rtags
 compile_commands.json

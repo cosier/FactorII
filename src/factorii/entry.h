@@ -1,6 +1,8 @@
 #ifndef FII_ENTRY_H
 #define FII_ENTRY_H
 
+#include <stdlib.h>
+
 typedef struct fii_entry {
     char* name;
     char* code;

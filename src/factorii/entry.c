@@ -9,7 +9,7 @@ fii_entry* fii_entry_create(char* name, char* code) {
 
 void fii_entry_free(fii_entry* entry) {
     if (entry == NULL) {
-        return
+        return;
     };
 
     free(entry->name);

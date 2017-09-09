@@ -1,0 +1,35 @@
+#!/bin/bash
+set -euf -o pipefail
+
+BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $BIN/vars.sh
+
+# Allow cleaning of build tree on the tests runner cli
+if [[ "$1" == "clean" ]]; then
+  $BIN/clean.sh
+  shift;
+fi
+
+# Build with debug flag on
+DEBUG=true $BIN/build.sh
+
+# Don't run tests if we can't even build
+if [[ $? != 0 ]]; then
+  exit 1
+fi
+
+# Run the CTest suite
+make test
+failed=$?
+
+if [[ "$1" != "" ]]; then
+  # Clear test results from the screen if they failed, as we are
+  # already inspecting the tests for failure.
+  if [[ $failed != 0 ]]; then
+    clear
+  fi
+
+  echo -e "Running single test output: $1\n"
+  $BUILD_DIR/tests/$1
+fi
+

@@ -31,6 +31,7 @@ set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
+enable_testing ()
 
 # Main library support
 add_subdirectory("src/${APP_LIB_NAME}")

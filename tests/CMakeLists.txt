@@ -27,7 +27,6 @@ set(lib ${APP_LIB_NAME})
 target_link_libraries( test-main ${lib} tests)
 
 # Enable CTests suite reporting
-enable_testing ()
 
 add_test(NAME test-main COMMAND test-main)
 

@@ -58,7 +58,3 @@ if [ ! $? -eq 0 ]; then
   exit 1
 fi
 
-if [ ! -f $EXE_LINK ]; then
-  ln -sf $EXE_BUILD $EXE_LINK
-fi
-

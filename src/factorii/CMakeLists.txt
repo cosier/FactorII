@@ -35,9 +35,10 @@ include_directories( ${APP_LIB_NAME}
 
 target_link_libraries( ${APP_LIB_NAME}
   m # C Math Lib
-  ubelt # Cross platform c utility belt
-  ${ncurses_lib} # NCurses UI lib
-  )
+  # Cross platform c utility belt
+  ubelt
+  # NCurses UI lib
+  ${ncurses_lib})
 
 
 

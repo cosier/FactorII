@@ -54,7 +54,6 @@ int main(int argc, char** argv) {
         }
     }
 
-
     // Version output and then exit.
     if (version) {
         print_version();
@@ -67,6 +66,8 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    print_usage();
+    fii_options *opts = fii_options_create(NULL);
+    fii_interface(opts);
+
     return 0;
 }

@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.6)
 
-set( APP_LIB_NAME $ENV{APP_LIB_NAME})
-set( APP_EXE_NAME $ENV{APP_MAIN_EXE})
+set( APP_LIB_NAME factorii)
+set( APP_EXE_NAME fii)
 set( APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
 project(${APP_LIB_NAME})
+
 
 set (APP_VERSION_MAJOR 0)
 set (APP_VERSION_MINOR 1)
@@ -46,8 +47,8 @@ add_subdirectory("vendor/ubelt")
 
 # Setup auto generation of version.h during build
 configure_file (
-  "${APP_ROOT}/src/version.h.in"
-  "${APP_ROOT}/src/version.h"
+  "${APP_ROOT}/src/factorii/version.h.in"
+  "${APP_ROOT}/src/factorii/version.h"
 )
 
 include_directories(

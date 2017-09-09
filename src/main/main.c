@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #include <factorii/core.h>
-#include "version.h"
 
 void print_usage() {
     printf("Usage: factorii [options]\n\n");

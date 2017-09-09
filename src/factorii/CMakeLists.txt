@@ -29,9 +29,8 @@ add_library(${APP_LIB_NAME} STATIC ${SRC_LIB})
 find_library( ncurses_lib ncurses )
 
 # Link Library support: lib${APP_LIB_NAME}
-target_include_directories( ${APP_LIB_NAME} PUBLIC ./ )
-target_include_directories( ${APP_LIB_NAME}
-  PUBLIC
+include_directories( ${APP_LIB_NAME}
+  ${APP_ROOT}/src
   ${APP_ROOT}/vendor/ubelt/src )
 
 target_link_libraries( ${APP_LIB_NAME}

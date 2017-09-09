@@ -8,8 +8,8 @@ source $BIN/vars.sh
 # Ensure build dir exists and change directory
 mkdir -p $BUILD_DIR && cd $BUILD_DIR;
 
-RELEASE=${RELEASE:-}
 DEBUG=${DEBUG:-}
+RELEASE=${RELEASE:-}
 BUILD_TYPE=${CMAKE_BUILD_TYPE:-}
 
 if [[ "$RELEASE" == true ]]; then
@@ -32,7 +32,9 @@ if [[ "$BUILD_REVISION" == "" ]]; then
 fi
 
 echo
-echo -e " BUILD_TYPE::     $BUILD_TYPE"
+echo -e " APP_LIB_NAME:    $APP_LIB_NAME"
+echo -e " APP_EXE_NAME:    $APP_EXE_NAME"
+echo -e " BUILD_TYPE:      $BUILD_TYPE"
 echo -e " BUILD_REVISION:  $BUILD_REVISION "
 echo -e " BUILD_TIMESTAMP: $BUILD_TIMESTAMP"
 echo -e "-------------------------------------\n"
@@ -42,8 +44,6 @@ if [[ ! -f $BUILD_DIR/Makefile ]]; then
   cmake \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
     -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-    -DAPP_LIB_NAME=$APP_LIB_NAME \
-    -DAPP_MAIN_EXE=$APP_MAIN_EXE \
     ..
 
   if [ ! $? -eq 0 ]; then

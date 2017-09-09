@@ -42,6 +42,8 @@ add_subdirectory("src/main")
 # Lots of tests :-)
 add_subdirectory("tests")
 
+add_subdirectory("vendor/ubelt")
+
 # Setup auto generation of version.h during build
 configure_file (
   "${APP_ROOT}/src/version.h.in"
@@ -50,4 +52,5 @@ configure_file (
 
 include_directories(
   "${APP_ROOT}/src"
+  "${APP_ROOT}/vendor/ubelt/src"
 )

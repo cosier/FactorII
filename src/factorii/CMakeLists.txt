@@ -30,7 +30,15 @@ find_library( ncurses_lib ncurses )
 
 # Link Library support: lib${APP_LIB_NAME}
 target_include_directories( ${APP_LIB_NAME} PUBLIC ./ )
-target_link_libraries( ${APP_LIB_NAME} m ${ncurses_lib} )
+target_include_directories( ${APP_LIB_NAME}
+  PUBLIC
+  ${APP_ROOT}/vendor/ubelt/src )
+
+target_link_libraries( ${APP_LIB_NAME}
+  m # C Math Lib
+  ubelt # Cross platform c utility belt
+  ${ncurses_lib} # NCurses UI lib
+  )
 
 
 

@@ -22,7 +22,6 @@ void print_version() {
     printf("Homepage: https://github.com/cosier/factorii\n\n");
 }
 
-
 int main(int argc, char** argv) {
     int opt = 0;
     int version = 0, help = 0;
@@ -30,13 +29,12 @@ int main(int argc, char** argv) {
     // Specifying the expected options
     // The two options l and b expect numbers as argument
     static struct option long_options[] = {
-        {"help", no_argument, 0, 'h'},
-        {"version", no_argument, 0, 'v'},
+        {"help", no_argument, 0, 'h'}, {"version", no_argument, 0, 'v'},
     };
 
     int long_index = 0;
-    while ((opt = getopt_long(argc, argv, "hv", long_options,
-                              &long_index)) != -1) {
+    while ((opt = getopt_long(argc, argv, "hv", long_options, &long_index)) !=
+           -1) {
 
         switch (opt) {
 
@@ -66,7 +64,7 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    fii_options *opts = fii_options_create(NULL);
+    fii_options* opts = fii_options_create(NULL);
     fii_interface(opts);
 
     return 0;

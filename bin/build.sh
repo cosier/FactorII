@@ -5,23 +5,22 @@ ROOT=$( cd $BIN/../ && pwd )
 
 source $BIN/vars.sh
 
-# Provide clean hooks from the cli
-if [[ "$1" == "clean" ]]; then
-  rm -rf $ROOT/build
-fi
-
 # Ensure build dir exists and change directory
 mkdir -p $BUILD_DIR && cd $BUILD_DIR;
 
+RELEASE=${RELEASE:-}
+DEBUG=${DEBUG:-}
+BUILD_TYPE=${CMAKE_BUILD_TYPE:-}
+
 if [[ "$RELEASE" == true ]]; then
-  CMAKE_BUILD_TYPE=Release
+  BUILD_TYPE=Release
 elif [[ "$DEBUG" == true ]]; then
-  CMAKE_BUILD_TYPE=Debug
+  BUILD_TYPE=Debug
 fi
 
 # Fallback to Debug build if no explicit type found
-if [ -z "$CMAKE_BUILD_TYPE" ]; then
-  CMAKE_BUILD_TYPE=Debug
+if [ -z "$BUILD_TYPE" ]; then
+ BUILD_TYPE=Debug
 fi
 
 export BUILD_REVISION=$(git rev-parse --short --verify HEAD)
@@ -33,16 +32,20 @@ if [[ "$BUILD_REVISION" == "" ]]; then
 fi
 
 echo
-echo -e " Building: $CMAKE_BUILD_TYPE"
+echo -e " BUILD_TYPE::     $BUILD_TYPE"
+echo -e " BUILD_REVISION:  $BUILD_REVISION "
 echo -e " BUILD_TIMESTAMP: $BUILD_TIMESTAMP"
-echo -e " BUILD_REVISION: $BUILD_REVISION "
 echo -e "-------------------------------------\n"
 
 # If Makefile doesn't exist, initiate cmake to generate it.
 if [[ ! -f $BUILD_DIR/Makefile ]]; then
   cmake \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-    -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE ..
+    -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+    -DAPP_LIB_NAME=$APP_LIB_NAME \
+    -DAPP_MAIN_EXE=$APP_MAIN_EXE \
+    ..
+
   if [ ! $? -eq 0 ]; then
     exit 1
   fi

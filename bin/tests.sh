@@ -4,12 +4,6 @@ set -euf -o pipefail
 BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BIN/vars.sh
 
-# Allow cleaning of build tree on the tests runner cli
-if [[ "$1" == "clean" ]]; then
-  $BIN/clean.sh
-  shift;
-fi
-
 # Build with debug flag on
 DEBUG=true $BIN/build.sh
 

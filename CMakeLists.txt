@@ -23,18 +23,16 @@ endif()
 # Add compile time definitions for debug optimizations
 if ("$ENV{CMAKE_BUILD_TYPE}" STREQUAL "debug")
   add_definitions(-D_DEBUG_)
+else()
+  add_definitions(-D_DEBUG_)
 endif()
 
 # This project uses C11 Standard
 set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall")
 enable_testing ()
-
-# SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-# SET(BUILD_SHARED_LIBRARIES OFF)
-# SET(CMAKE_EXE_LINKER_FLAGS "-static")
 
 include_directories(
   "${APP_ROOT}/src"

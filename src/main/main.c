@@ -1,9 +1,5 @@
-#include <getopt.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-
 #include <factorii/core.h>
+#include <getopt.h>
 
 void print_usage() {
     printf("Usage: factorii [options]\n\n");

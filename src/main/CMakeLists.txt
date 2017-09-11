@@ -13,11 +13,15 @@ SET ( SRC_MAIN main.c )
 # Setup main executable for this project
 add_executable(${APP_EXE_NAME} ${SRC_MAIN})
 
-include_directories(
-  ${APP_ROOT}/src)
+# include_directories(
+#   ${APP_ROOT}/vendor/nuklear
+#   ${APP_ROOT}/vendor/glfw/include
+#   ${APP_ROOT}/src)
 
 # Link Library support
-target_link_libraries( ${APP_EXE_NAME} ${APP_LIB_NAME} )
+target_link_libraries( ${APP_EXE_NAME}
+  ${OPENGL_glu_LIBRARY}
+  ${APP_LIB_NAME})
 
 install(TARGETS ${APP_EXE_NAME}
   RUNTIME DESTINATION bin)

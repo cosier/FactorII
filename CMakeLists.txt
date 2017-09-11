@@ -36,6 +36,13 @@ enable_testing ()
 # SET(BUILD_SHARED_LIBRARIES OFF)
 # SET(CMAKE_EXE_LINKER_FLAGS "-static")
 
+include_directories(
+  "${APP_ROOT}/src"
+  "${APP_ROOT}/vendor/nuklear"
+  "${APP_ROOT}/vendor/glfw/include"
+  "${APP_ROOT}/vendor/ubelt/src"
+)
+
 # Lots of tests :-)
 add_subdirectory("tests")
 
@@ -58,10 +65,4 @@ add_subdirectory("vendor/glfw")
 configure_file (
   "${APP_ROOT}/src/${APP_LIB_NAME}/version.h.in"
   "${APP_ROOT}/src/${APP_LIB_NAME}/version.h"
-)
-
-include_directories(
-  "${APP_ROOT}/src"
-  "${APP_ROOT}/vendor/nuklear"
-  "${APP_ROOT}/vendor/ubelt/src"
 )

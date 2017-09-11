@@ -32,17 +32,21 @@ add_library(${APP_LIB_NAME} STATIC ${SRC_LIB})
 # Everybody needs curses
 find_library( ncurses_lib ncurses )
 
-# Link Library support: lib${APP_LIB_NAME}
-include_directories( ${APP_LIB_NAME}
-  ${APP_ROOT}/src
-  ${APP_ROOT}/vendor/ubelt/src )
+find_package(OpenGL REQUIRED)
 
+# Link Library support: lib${APP_LIB_NAME}
 target_link_libraries( ${APP_LIB_NAME}
-  m # C Math Lib
+  # C Math Lib
+  m
+
   # Cross platform c utility belt
   ubeltx
+
   # OpenGL toolkit
+  ${OPENGL_gl_LIBRARY}
+  ${OPENGL_glu_LIBRARY}
   glfw
+
   # NCurses UI lib
   ${ncurses_lib})
 

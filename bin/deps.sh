@@ -8,7 +8,7 @@ if [[ ! -d $VENDOR/ubelt ]]; then
   echo "ubelt: initialising submodule"
   git submodule update --init --recursive
 else
-  echo "ubelt: ready"
+  echo "ubelt:   ready"
 fi
 
 VENDOR_PREFIX=$VENDOR/build
@@ -49,6 +49,7 @@ if [[ ! -f $LIBDB ]]; then
   fi
 
 else
-  echo -e "libdb: found vendorized $(basename $LIBDB)"
+  echo -e "libdb:   found $(basename $LIBDB)"
 fi
 
+echo -e "======================="

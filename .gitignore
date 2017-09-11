@@ -6,6 +6,7 @@
 *.#*
 Testing
 
+vendor
 vendor/build
 version.h
 

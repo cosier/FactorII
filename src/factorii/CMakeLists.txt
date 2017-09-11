@@ -5,7 +5,7 @@ project(${APP_LIB_NAME})
 set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra")
 
 
 # Glob'n all C source + headers under src/

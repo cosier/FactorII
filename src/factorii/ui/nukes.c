@@ -8,8 +8,6 @@
 #define NK_INCLUDE_FONT_BAKING
 #define NK_INCLUDE_DEFAULT_FONT
 #define NK_IMPLEMENTATION
-#define NK_GLFW_GL2_IMPLEMENTATION
-
 #include "nuklear.h"
 
 #ifndef NK_GLFW_TEXT_MAX
@@ -190,6 +188,9 @@ NK_API void nk_gflw3_scroll_callback(GLFWwindow* win, double xoff,
 
 NK_API void nk_glfw3_mouse_button_callback(GLFWwindow* window, int button,
                                            int action, int mods) {
+    if (mods > 0) {
+    }
+
     double x, y;
     if (button != GLFW_MOUSE_BUTTON_LEFT)
         return;
@@ -201,8 +202,9 @@ NK_API void nk_glfw3_mouse_button_callback(GLFWwindow* window, int button,
             glfw.double_click_pos = nk_vec2(x, y);
         }
         glfw.last_button_click = glfwGetTime();
-    } else
+    } else {
         glfw.is_double_click_down = nk_false;
+    }
 }
 
 NK_INTERN void nk_glfw3_clipbard_paste(nk_handle usr,

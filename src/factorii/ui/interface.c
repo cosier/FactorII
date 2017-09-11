@@ -1,15 +1,17 @@
 #include "factorii/ui/interface.h"
-// #include "factorii/ui/nukes.h"
 
-static void error_callback(int e, const char* d) {
+static void error_callback(int e, const char *d) {
     printf("Error %d: %s\n", e, d);
 }
 
-void fii_interface() {
+void fii_interface(fii_options *opts) {
+    if (opts != NULL) {
+    }
+
     /* Platform */
-    static GLFWwindow* win;
-    struct nk_context* ctx;
     struct nk_color background;
+    static GLFWwindow *win;
+    struct nk_context *ctx;
     int width = 0, height = 0;
 
     /* GLFW */
@@ -18,7 +20,9 @@ void fii_interface() {
         fprintf(stdout, "[GFLW] failed to init!\n");
         exit(1);
     }
-    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Demo", NULL, NULL);
+
+    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "FactorII", NULL, NULL);
+
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
 
@@ -27,7 +31,7 @@ void fii_interface() {
     /* Load Fonts: if none of these are loaded a default font will be used  */
     /* Load Cursor: if you uncomment cursor loading please hide the cursor */
     {
-        struct nk_font_atlas* atlas;
+        struct nk_font_atlas *atlas;
         nk_glfw3_font_stash_begin(&atlas);
         /*struct nk_font *droid = nk_font_atlas_add_from_file(atlas,
          * "../../../extra_font/DroidSans.ttf", 14, 0);*/
@@ -45,7 +49,6 @@ void fii_interface() {
         /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
         /*nk_style_set_font(ctx, &droid->handle);*/
     }
-
     /* style.c */
     /*set_style(ctx, THEME_WHITE);*/
     /*set_style(ctx, THEME_RED);*/
@@ -113,6 +116,7 @@ void fii_interface() {
             glViewport(0, 0, width, height);
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(bg[0], bg[1], bg[2], bg[3]);
+
             /* IMPORTANT: `nk_glfw_render` modifies some global OpenGL state
              * with blending, scissor, face culling and depth test and defaults
              * everything

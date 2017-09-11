@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 #include <GLFW/glfw3.h>
+#include <factorii/options.h>
 #include <factorii/ui/nukes.h>
 
 #define WINDOW_WIDTH 400
@@ -22,6 +23,6 @@
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
 
-void fii_interface();
+void fii_interface(fii_options* opts);
 
 #endif

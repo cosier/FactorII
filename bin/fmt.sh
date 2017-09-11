@@ -2,7 +2,7 @@
 # Format source code in the entire tree based on clang-format
 set -euf -o pipefail
 
-DIR="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BIN/vars.sh
 
 SRC=$ROOT/src

@@ -23,6 +23,6 @@
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
 
-void fii_interface(fii_options* opts);
+void fii_interface(fii_options *opts);
 
 #endif

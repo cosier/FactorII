@@ -18,7 +18,7 @@ void print_version() {
     printf("Homepage: https://github.com/cosier/factorii\n\n");
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     int opt = 0;
     int version = 0, help = 0;
 
@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    fii_options* opts = fii_options_create(NULL);
+    fii_options *opts = fii_options_create(NULL);
     fii_interface(opts);
 
     return 0;

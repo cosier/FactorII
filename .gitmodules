@@ -4,3 +4,6 @@
 [submodule "vendor/libdb"]
 	path = vendor/libdb
 	url = git@github.com:berkeleydb/libdb.git
+[submodule "vendor/nuklear"]
+	path = vendor/nuklear
+	url = https://github.com/vurtun/nuklear.git

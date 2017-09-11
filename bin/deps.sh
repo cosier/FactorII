@@ -4,16 +4,27 @@ set -euf -o pipefail
 BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BIN/vars.sh
 
-if [[ ! -d $ROOT/vendor/ubelt ]]; then
+if [[ ! -d $VENDOR/ubelt ]]; then
   echo "ubelt: initialising submodule"
   git submodule update --init --recursive
 else
-  echo "ubelt: found"
+  echo "ubelt: ready"
 fi
 
-VENDOR_PREFIX=$ROOT/vendor/build
-LIBDB=$VENDOR_PREFIX/lib/libdb.a
+VENDOR_PREFIX=$VENDOR/build
 
+######################################
+# Depend on Nuklear
+if [[ ! -f $VENDOR/nuklear/nuklear.h ]]; then
+  echo "nuklear: initialising submodule"
+  git submodule update --init --recursive
+else
+  echo "nuklear: ready"
+fi
+
+######################################
+# Depend on Berkeley DB, aka. libDB
+LIBDB=$VENDOR_PREFIX/lib/libdb.a
 if [[ ! -f $LIBDB ]]; then
   echo "libdb: building"
   cd $ROOT/vendor/libdb/build_unix

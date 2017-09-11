@@ -4,6 +4,7 @@ set -euf -o pipefail
 BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT=$( cd $BIN/../ && pwd )
 BUILD_DIR=$ROOT/build
+VENDOR=$ROOT/vendor
 
 # Apply some cat sed grep trickery to extract
 # APP_LIB_NAME and APP_EXE_NAME from CMake config.

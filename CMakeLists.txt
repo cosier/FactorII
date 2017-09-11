@@ -32,6 +32,10 @@ set( CMAKE_C_STANDARD 11 )
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
 enable_testing ()
 
+# SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+# SET(BUILD_SHARED_LIBRARIES OFF)
+# SET(CMAKE_EXE_LINKER_FLAGS "-static")
+
 # Lots of tests :-)
 add_subdirectory("tests")
 
@@ -44,6 +48,12 @@ add_subdirectory("src/main")
 # Utility Belt library support
 add_subdirectory("vendor/ubelt")
 
+# UI and Rendering
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+add_subdirectory("vendor/glfw")
+
 # Setup auto generation of version.h during build
 configure_file (
   "${APP_ROOT}/src/${APP_LIB_NAME}/version.h.in"
@@ -52,5 +62,6 @@ configure_file (
 
 include_directories(
   "${APP_ROOT}/src"
+  "${APP_ROOT}/vendor/nuklear"
   "${APP_ROOT}/vendor/ubelt/src"
 )

@@ -25,6 +25,10 @@ endforeach( PATH )
 # Build project core as a library
 add_library(${APP_LIB_NAME} STATIC ${SRC_LIB})
 
+# Use Utility Belt in Shared library mode
+# add_library(ubeltx STATIC IMPORTED)
+# set_property(TARGET ${c_lib}  PROPERTY SHARED IMPORTED)
+
 # Everybody needs curses
 find_library( ncurses_lib ncurses )
 
@@ -36,7 +40,9 @@ include_directories( ${APP_LIB_NAME}
 target_link_libraries( ${APP_LIB_NAME}
   m # C Math Lib
   # Cross platform c utility belt
-  ubelt
+  ubeltx
+  # OpenGL toolkit
+  glfw
   # NCurses UI lib
   ${ncurses_lib})
 

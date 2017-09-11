@@ -6,10 +6,7 @@
 *.#*
 Testing
 
-vendor
 vendor/build
-bin/fii
-
 version.h
 
 

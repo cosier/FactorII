@@ -7,3 +7,6 @@
 [submodule "vendor/nuklear"]
 	path = vendor/nuklear
 	url = https://github.com/vurtun/nuklear.git
+[submodule "vendor/glfw"]
+	path = vendor/glfw
+	url = git@github.com:glfw/glfw.git

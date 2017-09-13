@@ -1,4 +1,8 @@
 #include "factorii/ui/interface.h"
+static double cursor_pos_x = 0;
+static double cursor_pos_y = 0;
+static int window_drag_active = 0;
+static GLFWwindow *win;
 
 static void error_callback(int e, const char *d) {
     printf("Error %d: %s\n", e, d);
@@ -48,13 +52,75 @@ void fii_content(struct nk_context *ctx, int width, int height) {
     nk_end(ctx);
 }
 
+static inline void drag_start() {
+    if (!window_drag_active) {
+        // printf("draw_start!\n");
+        window_drag_active = 1;
+
+        double x, y;
+        glfwGetCursorPos(win, &x, &y);
+        cursor_pos_x = x;
+        cursor_pos_y = y;
+    }
+}
+
+static inline void drag_stop() {
+    // no longer dragging!
+    window_drag_active = 0;
+}
+
+static inline void drag_apply(GLFWwindow *win) {
+    if (window_drag_active) {
+        double cx, cy, delta_x, delta_y;
+        int x, y;
+        glfwGetCursorPos(win, &cx, &cy);
+        delta_x = cx - cursor_pos_x;
+        delta_y = cy - cursor_pos_y;
+
+        glfwGetWindowPos(win, &x, &y);
+        glfwSetWindowPos(win, x + delta_x, y + delta_y);
+    }
+}
+
+void fii_header(struct nk_context *ctx, int width) {
+    int header_height = 40;
+    int ow = 34;
+
+    struct nk_color off_white = nk_rgba(ow, ow, ow, 0);
+    struct nk_input *in = &ctx->input;
+
+    nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
+                             nk_style_item_color(off_white));
+
+    nk_window_show(ctx, "AppHeader", NK_SHOWN);
+
+    if (nk_begin(ctx, "AppHeader", nk_rect(0, 0, width, header_height), 0)) {
+        int left_mouse_down = in && in->mouse.buttons[NK_BUTTON_LEFT].down;
+        int left_mouse_click_in_cursor =
+            left_mouse_down &&
+            nk_input_has_mouse_click_down_in_rect(
+                in, NK_BUTTON_LEFT, ctx->current->bounds, nk_true);
+
+        if (left_mouse_down && left_mouse_click_in_cursor) {
+            drag_start();
+        } else {
+            if (window_drag_active == 1) {
+                drag_stop();
+            }
+        }
+    }
+
+    nk_window_set_focus(ctx, "AppHeader");
+    nk_style_pop_style_item(ctx);
+    nk_end(ctx);
+}
+
 void fii_interface(fii_options *opts) {
     if (opts != NULL) {
     }
 
     /* Platform */
     struct nk_color background;
-    static GLFWwindow *win;
     struct nk_context *ctx;
     int width = 0, height = 0;
 
@@ -65,60 +131,38 @@ void fii_interface(fii_options *opts) {
         exit(1);
     }
 
-    int monitors = 0;
-    glfwGetMonitors(&monitors);
-
-    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", monitors,
-                           NULL);
+    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", NULL, NULL);
 
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
 
+    // Place on secondary monitor for development purposes.
+    // glfwSetWindowPos(win, 2700, 100);
+
     /* GUI */
     ctx = nk_glfw3_init(win, NK_GLFW3_INSTALL_CALLBACKS);
-    /* Load Fonts: if none of these are loaded a default font will be used  */
-    /* Load Cursor: if you uncomment cursor loading please hide the cursor */
     {
         struct nk_font_atlas *atlas;
         nk_glfw3_font_stash_begin(&atlas);
-        /*struct nk_font *droid = nk_font_atlas_add_from_file(atlas,
-         * "../../../extra_font/DroidSans.ttf", 14, 0);*/
-        /*struct nk_font *roboto = nk_font_atlas_add_from_file(atlas,
-         * "../../../extra_font/Roboto-Regular.ttf", 14, 0);*/
-        /*struct nk_font *future = nk_font_atlas_add_from_file(atlas,
-         * "../../../extra_font/kenvector_future_thin.ttf", 13, 0);*/
-        /*struct nk_font *clean = nk_font_atlas_add_from_file(atlas,
-         * "../../../extra_font/ProggyClean.ttf", 12, 0);*/
-        /*struct nk_font *tiny = nk_font_atlas_add_from_file(atlas,
-         * "../../../extra_font/ProggyTiny.ttf", 10, 0);*/
-        /*struct nk_font *cousine = nk_font_atlas_add_from_file(atlas,
-         * "../../../extra_font/Cousine-Regular.ttf", 13, 0);*/
         nk_glfw3_font_stash_end();
-        /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
-        /*nk_style_set_font(ctx, &droid->handle);*/
     }
 
-    /* style.c */
-    /*set_style(ctx, THEME_WHITE);*/
-    /*set_style(ctx, THEME_RED);*/
-    /*set_style(ctx, THEME_BLUE);*/
-    /*set_style(ctx, THEME_DARK);*/
+    drag_start();
 
-    background = nk_rgb(28, 48, 62);
+    background = nk_rgb(255, 255, 255);
     while (!glfwWindowShouldClose(win)) {
         /* Input */
-        glfwPollEvents();
+        glfwWaitEvents();
+
         nk_glfw3_new_frame();
         glfwGetWindowSize(win, &width, &height);
 
         fii_sidebar(ctx, width, height);
         fii_content(ctx, width, height);
+        fii_header(ctx, width);
 
-        /* -------------- EXAMPLES ---------------- */
-        /*calculator(ctx);*/
-        /*overview(ctx);*/
-        /*node_editor(ctx);*/
-        /* ----------------------------------------- */
+        drag_apply(win);
 
         /* Draw */
         {
@@ -128,12 +172,6 @@ void fii_interface(fii_options *opts) {
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(bg[0], bg[1], bg[2], bg[3]);
 
-            /* IMPORTANT: `nk_glfw_render` modifies some global OpenGL state
-             * with blending, scissor, face culling and depth test and defaults
-             * everything
-             * back into a default state. Make sure to either save and restore
-             * or
-             * reset your own state after drawing rendering the UI. */
             nk_glfw3_render(NK_ANTI_ALIASING_ON);
             glfwSwapBuffers(win);
         }

@@ -347,6 +347,7 @@ NK_API void nk_glfw3_new_frame(void) {
 
     glfwGetCursorPos(win, &x, &y);
     nk_input_motion(ctx, (int)x, (int)y);
+
     if (ctx->input.mouse.grabbed) {
         glfwSetCursorPos(glfw.win, ctx->input.mouse.prev.x,
                          ctx->input.mouse.prev.y);

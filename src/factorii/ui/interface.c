@@ -4,6 +4,50 @@ static void error_callback(int e, const char *d) {
     printf("Error %d: %s\n", e, d);
 }
 
+static int get_sidebar_width(int width) {
+    int w = width < 200 ? width : 200;
+    return w;
+}
+
+static int get_content_width(int width) {
+    return width - get_sidebar_width(width);
+}
+
+void fii_sidebar(struct nk_context *ctx, int width, int height) {
+    int ow = 255;
+    struct nk_color white = nk_rgb(ow, ow, ow);
+
+    // struct nk_command_buffer *out = NULL;
+
+    nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
+                             nk_style_item_color(white));
+
+    if (nk_begin(ctx, "Sidebar",
+                 nk_rect(0, 0, get_sidebar_width(width), height), 0)) {
+    }
+
+    nk_style_pop_style_item(ctx);
+    nk_end(ctx);
+}
+
+void fii_content(struct nk_context *ctx, int width, int height) {
+    int ow = 220;
+    struct nk_color off_white = nk_rgb(ow, ow, ow);
+
+    // struct nk_command_buffer *out = NULL;
+
+    nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
+                             nk_style_item_color(off_white));
+
+    if (nk_begin(ctx, "Content", nk_rect(get_sidebar_width(width), 0,
+                                         get_content_width(width), height),
+                 0)) {
+    }
+
+    nk_style_pop_style_item(ctx);
+    nk_end(ctx);
+}
+
 void fii_interface(fii_options *opts) {
     if (opts != NULL) {
     }
@@ -21,7 +65,11 @@ void fii_interface(fii_options *opts) {
         exit(1);
     }
 
-    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "FactorII", NULL, NULL);
+    int monitors = 0;
+    glfwGetMonitors(&monitors);
+
+    win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", monitors,
+                           NULL);
 
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
@@ -49,6 +97,7 @@ void fii_interface(fii_options *opts) {
         /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
         /*nk_style_set_font(ctx, &droid->handle);*/
     }
+
     /* style.c */
     /*set_style(ctx, THEME_WHITE);*/
     /*set_style(ctx, THEME_RED);*/
@@ -60,47 +109,10 @@ void fii_interface(fii_options *opts) {
         /* Input */
         glfwPollEvents();
         nk_glfw3_new_frame();
+        glfwGetWindowSize(win, &width, &height);
 
-        /* GUI */
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 250),
-                     NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
-                         NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE)) {
-            enum { EASY, HARD };
-            static int op = EASY;
-            static int property = 20;
-            nk_layout_row_static(ctx, 30, 80, 1);
-            if (nk_button_label(ctx, "button"))
-                fprintf(stdout, "button pressed\n");
-
-            nk_layout_row_dynamic(ctx, 30, 2);
-            if (nk_option_label(ctx, "easy", op == EASY))
-                op = EASY;
-            if (nk_option_label(ctx, "hard", op == HARD))
-                op = HARD;
-
-            nk_layout_row_dynamic(ctx, 25, 1);
-            nk_property_int(ctx, "Compression:", 0, &property, 100, 10, 1);
-
-            nk_layout_row_dynamic(ctx, 20, 1);
-            nk_label(ctx, "background:", NK_TEXT_LEFT);
-            nk_layout_row_dynamic(ctx, 25, 1);
-            if (nk_combo_begin_color(ctx, background,
-                                     nk_vec2(nk_widget_width(ctx), 400))) {
-                nk_layout_row_dynamic(ctx, 120, 1);
-                background = nk_color_picker(ctx, background, NK_RGBA);
-                nk_layout_row_dynamic(ctx, 25, 1);
-                background.r = (nk_byte)nk_propertyi(ctx, "#R:", 0,
-                                                     background.r, 255, 1, 1);
-                background.g = (nk_byte)nk_propertyi(ctx, "#G:", 0,
-                                                     background.g, 255, 1, 1);
-                background.b = (nk_byte)nk_propertyi(ctx, "#B:", 0,
-                                                     background.b, 255, 1, 1);
-                background.a = (nk_byte)nk_propertyi(ctx, "#A:", 0,
-                                                     background.a, 255, 1, 1);
-                nk_combo_end(ctx);
-            }
-        }
-        nk_end(ctx);
+        fii_sidebar(ctx, width, height);
+        fii_content(ctx, width, height);
 
         /* -------------- EXAMPLES ---------------- */
         /*calculator(ctx);*/
@@ -112,7 +124,6 @@ void fii_interface(fii_options *opts) {
         {
             float bg[4];
             nk_color_fv(bg, background);
-            glfwGetWindowSize(win, &width, &height);
             glViewport(0, 0, width, height);
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(bg[0], bg[1], bg[2], bg[3]);

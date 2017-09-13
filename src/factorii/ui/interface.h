@@ -15,8 +15,8 @@
 #include <factorii/options.h>
 #include <factorii/ui/nukes.h>
 
-#define WINDOW_WIDTH 400
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 550
+#define WINDOW_HEIGHT 500
 
 #define UNUSED(a) (void)a
 #define MIN(a, b) ((a) < (b) ? (a) : (b))

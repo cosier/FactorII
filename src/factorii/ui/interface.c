@@ -3,13 +3,14 @@ static double cursor_pos_x = 0;
 static double cursor_pos_y = 0;
 static int window_drag_active = 0;
 static GLFWwindow *win;
+static int QUIT = 0;
 
 static void error_callback(int e, const char *d) {
     printf("Error %d: %s\n", e, d);
 }
 
 static int get_sidebar_width(int width) {
-    int w = width < 200 ? width : 200;
+    int w = width < 200 ? width : 230;
     return w;
 }
 
@@ -27,7 +28,7 @@ void fii_sidebar(struct nk_context *ctx, int width, int height) {
                              nk_style_item_color(white));
 
     if (nk_begin(ctx, "Sidebar",
-                 nk_rect(0, 0, get_sidebar_width(width), height), 0)) {
+                 nk_rect(0, 50, get_sidebar_width(width), height), 0)) {
     }
 
     nk_style_pop_style_item(ctx);
@@ -43,7 +44,7 @@ void fii_content(struct nk_context *ctx, int width, int height) {
     nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
                              nk_style_item_color(off_white));
 
-    if (nk_begin(ctx, "Content", nk_rect(get_sidebar_width(width), 0,
+    if (nk_begin(ctx, "Content", nk_rect(get_sidebar_width(width), 50,
                                          get_content_width(width), height),
                  0)) {
     }
@@ -66,7 +67,9 @@ static inline void drag_start() {
 
 static inline void drag_stop() {
     // no longer dragging!
-    window_drag_active = 0;
+    if (window_drag_active) {
+        window_drag_active = 0;
+    }
 }
 
 static inline void drag_apply(GLFWwindow *win) {
@@ -83,35 +86,79 @@ static inline void drag_apply(GLFWwindow *win) {
 }
 
 void fii_header(struct nk_context *ctx, int width) {
-    int header_height = 40;
-    int ow = 34;
-
-    struct nk_color off_white = nk_rgba(ow, ow, ow, 0);
+    struct nk_color transparent = nk_rgba(255, 255, 255, 0);
+    struct nk_color black = nk_rgb(0, 0, 0);
+    struct nk_color red = nk_rgb(255, 0, 0);
     struct nk_input *in = &ctx->input;
+    int header_height = 50;
 
     nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
-                             nk_style_item_color(off_white));
+                             nk_style_item_color(transparent));
 
-    nk_window_show(ctx, "AppHeader", NK_SHOWN);
+    nk_style_push_style_item(ctx, &ctx->style.button.normal,
+                             nk_style_item_color(transparent));
 
-    if (nk_begin(ctx, "AppHeader", nk_rect(0, 0, width, header_height), 0)) {
-        int left_mouse_down = in && in->mouse.buttons[NK_BUTTON_LEFT].down;
-        int left_mouse_click_in_cursor =
-            left_mouse_down &&
-            nk_input_has_mouse_click_down_in_rect(
-                in, NK_BUTTON_LEFT, ctx->current->bounds, nk_true);
+    nk_style_push_style_item(ctx, &ctx->style.button.hover,
+                             nk_style_item_color(transparent));
 
-        if (left_mouse_down && left_mouse_click_in_cursor) {
+    nk_style_push_style_item(ctx, &ctx->style.button.active,
+                             nk_style_item_color(transparent));
+
+    nk_style_push_color(ctx, &ctx->style.button.text_background, transparent);
+    nk_style_push_color(ctx, &ctx->style.button.text_active, red);
+    nk_style_push_color(ctx, &ctx->style.button.text_normal, black);
+    nk_style_push_color(ctx, &ctx->style.button.text_hover, red);
+    nk_style_push_float(ctx, &ctx->style.button.border, 0);
+
+    struct nk_vec2 zero_padding = nk_vec2(0, 0);
+    nk_style_push_vec2(ctx, &ctx->style.window.padding, zero_padding);
+
+    int flags = NK_WINDOW_NO_SCROLLBAR;
+    if (nk_begin(ctx, "AppHeader", nk_rect(0, 0, width, header_height),
+                 flags)) {
+
+        int mouse_down = in && in->mouse.buttons[NK_BUTTON_LEFT].down;
+        int mouse_inside = mouse_down && nk_input_has_mouse_click_down_in_rect(
+                                             in, NK_BUTTON_LEFT,
+                                             ctx->current->bounds, nk_true);
+
+        if (mouse_down && mouse_inside) {
             drag_start();
         } else {
-            if (window_drag_active == 1) {
-                drag_stop();
-            }
+            drag_stop();
+        }
+
+        int sb_width = get_sidebar_width(width);
+
+        struct nk_command_buffer *canvas = nk_window_get_canvas(ctx);
+
+        // nk_layout_row_static(ctx, header_height, width, 1);
+        nk_layout_space_begin(ctx, NK_STATIC, header_height, INT_MAX);
+        // nk_layout_space_push(
+        //     ctx, nk_rect(sb_width, 0, width - sb_width, header_height));
+        struct nk_rect bgrect =
+            nk_rect(sb_width, 0, width - sb_width + 100, header_height);
+        nk_fill_rect(canvas, bgrect, 0, nk_rgb(220, 220, 220));
+
+        nk_layout_space_push(ctx, nk_rect(width - 30, 5, 20, 20));
+
+        if (nk_button_label(ctx, "X")) {
+            QUIT = 1;
         }
     }
 
-    nk_window_set_focus(ctx, "AppHeader");
+    // nk_window_set_focus(ctx, "AppHeader");
+
     nk_style_pop_style_item(ctx);
+    nk_style_pop_style_item(ctx);
+    nk_style_pop_style_item(ctx);
+    nk_style_pop_style_item(ctx);
+    nk_style_pop_color(ctx);
+    nk_style_pop_color(ctx);
+    nk_style_pop_color(ctx);
+    nk_style_pop_color(ctx);
+    nk_style_pop_float(ctx);
+    nk_style_pop_vec2(ctx);
     nk_end(ctx);
 }
 
@@ -131,14 +178,14 @@ void fii_interface(fii_options *opts) {
         exit(1);
     }
 
-    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
     win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", NULL, NULL);
 
     glfwMakeContextCurrent(win);
     glfwGetWindowSize(win, &width, &height);
 
     // Place on secondary monitor for development purposes.
-    // glfwSetWindowPos(win, 2700, 100);
+    glfwSetWindowPos(win, 2700, 100);
 
     /* GUI */
     ctx = nk_glfw3_init(win, NK_GLFW3_INSTALL_CALLBACKS);
@@ -174,6 +221,10 @@ void fii_interface(fii_options *opts) {
 
             nk_glfw3_render(NK_ANTI_ALIASING_ON);
             glfwSwapBuffers(win);
+        }
+
+        if (QUIT) {
+            break;
         }
     }
 

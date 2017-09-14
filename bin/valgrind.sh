@@ -4,8 +4,9 @@ set -euf -o pipefail
 BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BIN/vars.sh
 
-$BIN/clean.sh
+# $BIN/clean.sh
 DEBUG=true $BIN/build.sh
+FULL=${FULL:-false}
 
 if [ ! $? -eq 0 ]; then
   echo "Cannot run Valgrind, build broken."

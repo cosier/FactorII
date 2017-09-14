@@ -15,6 +15,13 @@
 #include <factorii/options.h>
 #include <factorii/ui/nukes.h>
 
+// UI Components
+#include <factorii/ui/content.h>
+#include <factorii/ui/fonts.h>
+#include <factorii/ui/header.h>
+#include <factorii/ui/helpers.h>
+#include <factorii/ui/sidebar.h>
+
 #define WINDOW_WIDTH 550
 #define WINDOW_HEIGHT 500
 
@@ -23,6 +30,12 @@
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
 
+struct fii_context {
+    GLFWwindow *win;
+    struct nk_context *ctx;
+};
+
 void fii_interface(fii_options *opts);
+void fii_quit();
 
 #endif

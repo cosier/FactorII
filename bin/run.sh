@@ -12,14 +12,10 @@ if [[ $? != 0 ]]; then
   exit 1
 fi
 
-DISPLAY=${DISPLAY:-}
+D=${D:-${DISPLAY}}
 
-if [[ -n ${D-:} ]]; then
-  DISPLAY=${D:-}
-fi
-
-echo "DISPLAY=$DISPLAY"
+echo "DISPLAY=$D"
 
 CMD="$EXE_BUILD $@"
 echo $CMD
-DISPLAY=$DISPLAY $CMD
+DISPLAY=$D $CMD

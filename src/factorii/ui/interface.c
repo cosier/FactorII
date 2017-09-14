@@ -20,7 +20,7 @@ static void fii_init(struct nk_context **pp_ctx, GLFWwindow **pp_win) {
     glfwMakeContextCurrent(win);
 
     // Place on secondary monitor for development purposes.
-    glfwSetWindowPos(win, 2700, 100);
+    /* glfwSetWindowPos(win, 2700, 100); */
 
     /* GUI */
     ctx = nk_glfw3_init(win, NK_GLFW3_INSTALL_CALLBACKS);

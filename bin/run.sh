@@ -13,7 +13,6 @@ if [[ $? != 0 ]]; then
 fi
 
 D=${D:-${DISPLAY}}
-
 echo "DISPLAY=$D"
 
 CMD="$EXE_BUILD $@"

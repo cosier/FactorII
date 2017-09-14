@@ -11,6 +11,7 @@ void error_callback(int e, const char *d);
 void drag_start(GLFWwindow *win);
 void drag_stop();
 void drag_apply(GLFWwindow *win);
+int is_dragging();
 
 int sidebar_width(int win_width);
 int content_width(int win_width);

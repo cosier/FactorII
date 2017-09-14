@@ -13,10 +13,12 @@
 
 #include <GLFW/glfw3.h>
 #include <factorii/options.h>
-#include <factorii/ui/nukes.h>
+#include <factorii/ui/nuk.h>
 
 // UI Components
+#include <factorii/ui/colors.h>
 #include <factorii/ui/content.h>
+#include <factorii/ui/cursor.h>
 #include <factorii/ui/fonts.h>
 #include <factorii/ui/header.h>
 #include <factorii/ui/helpers.h>

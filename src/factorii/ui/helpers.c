@@ -22,9 +22,7 @@ void drag_start(GLFWwindow *win) {
 
 void drag_stop() {
     // no longer dragging!
-    if (window_drag_active) {
-        window_drag_active = 0;
-    }
+    window_drag_active = 0;
 }
 
 void drag_apply(GLFWwindow *win) {
@@ -39,6 +37,8 @@ void drag_apply(GLFWwindow *win) {
         glfwSetWindowPos(win, x + delta_x, y + delta_y);
     }
 }
+
+int is_dragging() { return window_drag_active; }
 
 int sidebar_width(int win_width) {
     int w = win_width < 200 ? win_width : 230;

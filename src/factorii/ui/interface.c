@@ -44,6 +44,7 @@ void fii_interface(fii_options *opts) {
     assert(win && win != NULL && win != 0);
 
     fii_fonts_load(ctx);
+    fii_colors_init();
     drag_start(win);
 
     glfwGetWindowSize(win, &width, &height);

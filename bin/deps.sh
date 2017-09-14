@@ -27,6 +27,14 @@ fi
 LIBDB=$VENDOR_PREFIX/lib/libdb.a
 if [[ ! -f $LIBDB ]]; then
   echo "libdb: building"
+
+  # Apply apple specific patch for builing with xcode
+  if [[ $TARGET_OS == "Darwin" ]]; then
+    patch --forward --quiet  \
+      $ROOT/vendor/libdb/src/dbinc/atomic.h < \
+      $ROOT/vendor/patches/libdb_atomic.patch
+  fi
+
   cd $ROOT/vendor/libdb/build_unix
   ../dist/configure \
     --prefix=$VENDOR_PREFIX --enable-static

@@ -74,7 +74,7 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
         // Make space for the X button
         nk_layout_space_push(ctx, nk_rect(width - 30, 5, 20, 20));
 
-        if (nk_button_label(ctx, "X")) {
+        if (nk_button_label(ctx, "x")) {
             fii_quit();
         }
     }

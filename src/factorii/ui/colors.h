@@ -9,6 +9,10 @@ struct nk_color CLR_h1;
 struct nk_color CLR_tx;
 
 struct nk_color CLR_white;
+struct nk_color CLR_black;
+
+struct nk_color CLR_primary;
+struct nk_color CLR_secondary;
 
 void fii_colors_init();
 

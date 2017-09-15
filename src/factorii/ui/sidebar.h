@@ -2,6 +2,7 @@
 #define UI_SIDEBAR_H
 
 #include <GLFW/glfw3.h>
+#include <factorii/ui/colors.h>
 #include <factorii/ui/helpers.h>
 #include <factorii/ui/nuk.h>
 

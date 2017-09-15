@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 #include <GLFW/glfw3.h>
+#include <OpenGL/glext.h>
 #include <factorii/options.h>
 #include <factorii/ui/nuk.h>
 

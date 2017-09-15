@@ -5,5 +5,5 @@
 #include <ubelt/utils.h>
 
 void fii_fonts_load(struct nk_context *ctx);
-
+struct nk_user_font fii_font(struct nk_context *ctx, int size);
 #endif

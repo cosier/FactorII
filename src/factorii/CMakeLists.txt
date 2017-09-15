@@ -34,6 +34,9 @@ find_library( ncurses_lib ncurses )
 
 find_package(OpenGL REQUIRED)
 
+if (APPLE)
+endif()
+
 # Link Library support: lib${APP_LIB_NAME}
 target_link_libraries( ${APP_LIB_NAME}
   # C Math Lib

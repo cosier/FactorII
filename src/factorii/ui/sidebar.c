@@ -5,13 +5,10 @@ void fii_sidebar(GLFWwindow *win, struct nk_context *ctx, int win_width,
     if (!win) {
     }
 
-    int ow = 255;
-    struct nk_color white = nk_rgb(ow, ow, ow);
-
     // struct nk_command_buffer *out = NULL;
 
     nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
-                             nk_style_item_color(white));
+                             nk_style_item_color(CLR_sidebar));
 
     if (nk_begin(ctx, "Sidebar",
                  nk_rect(0, 50, sidebar_width(win_width), win_height), 0)) {

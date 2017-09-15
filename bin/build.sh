@@ -46,6 +46,7 @@ if [[ ! -f $BUILD_DIR/Makefile ]]; then
   cmake \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
     -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=10.8 \
     ..
 
   if [ ! $? -eq 0 ]; then

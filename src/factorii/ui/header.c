@@ -1,7 +1,6 @@
 #include <factorii/ui/header.h>
 
 void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
-    struct nk_color transparent = nk_rgba(255, 255, 255, 0);
     struct nk_color black = nk_rgb(0, 0, 0);
     struct nk_color red = nk_rgb(255, 0, 0);
     struct nk_input *in = &ctx->input;
@@ -10,7 +9,7 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
     int header_height = 50;
 
     nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
-                             nk_style_item_color(CLR_tx));
+                             nk_style_item_color(CLR_white));
 
     nk_style_push_style_item(ctx, &ctx->style.button.normal,
                              nk_style_item_color(CLR_tx));
@@ -21,13 +20,14 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
     nk_style_push_style_item(ctx, &ctx->style.button.active,
                              nk_style_item_color(CLR_tx));
 
-    nk_style_push_color(ctx, &ctx->style.button.text_background, transparent);
+    nk_style_push_color(ctx, &ctx->style.button.text_background, CLR_white);
     nk_style_push_color(ctx, &ctx->style.button.text_active, red);
     nk_style_push_color(ctx, &ctx->style.button.text_normal, black);
     nk_style_push_color(ctx, &ctx->style.button.text_hover, red);
     nk_style_push_float(ctx, &ctx->style.button.border, 0);
 
     nk_style_push_vec2(ctx, &ctx->style.window.padding, zero_padding);
+    // fii_font_size(20);
 
     if (nk_begin(ctx, "AppHeader", nk_rect(0, 0, width, header_height),
                  flags)) {

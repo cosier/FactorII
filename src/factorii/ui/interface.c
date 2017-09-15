@@ -15,6 +15,9 @@ static void fii_init(struct nk_context **pp_ctx, GLFWwindow **pp_win) {
     }
 
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+    glfwWindowHint(GLFW_ALPHA_MASK, GLFW_TRUE);
+    // glTexParameteri(GL_NEAREST);
+
     win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", NULL, NULL);
 
     glfwMakeContextCurrent(win);
@@ -48,6 +51,9 @@ void fii_interface(fii_options *opts) {
     drag_start(win);
 
     glfwGetWindowSize(win, &width, &height);
+    glEnable(GL_ALPHA_TEST);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_COLOR_MATERIAL);
 
     while (!glfwWindowShouldClose(win)) {
         /* Input */
@@ -57,7 +63,7 @@ void fii_interface(fii_options *opts) {
         glfwGetWindowSize(win, &width, &height);
 
         fii_sidebar(win, ctx, width, height);
-        fii_content(win, ctx, width, height);
+        // fii_content(win, ctx, width, height);
         fii_header(win, ctx, width);
 
         drag_apply(win);
@@ -67,10 +73,11 @@ void fii_interface(fii_options *opts) {
             float bg[4];
             glViewport(0, 0, width, height);
             glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(bg[0], bg[1], bg[2], bg[3]);
+            glClearColor(bg[0], bg[1], bg[2], 0);
 
             nk_glfw3_render(NK_ANTI_ALIASING_ON);
             glfwSwapBuffers(win);
+            // glSwapAPPLE();
         }
 
         if (QUIT) {

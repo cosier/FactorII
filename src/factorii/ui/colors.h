@@ -8,6 +8,8 @@ struct nk_color CLR_content;
 struct nk_color CLR_h1;
 struct nk_color CLR_tx;
 
+struct nk_color CLR_white;
+
 void fii_colors_init();
 
 #endif

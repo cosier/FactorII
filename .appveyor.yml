@@ -8,7 +8,7 @@ environment:
     BUILD_TIMESTAMP: now
     CFLAGS: /WX
     matrix:
-        - BUILD_SHARED_LIBS: ON
+        # - BUILD_SHARED_LIBS: ON
         - BUILD_SHARED_LIBS: OFF
 matrix:
     fast_finish: true

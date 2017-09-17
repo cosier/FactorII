@@ -4,6 +4,8 @@ branches:
         - master
 skip_tags: true
 environment:
+    BUILD_REVISION: git-ci
+    BUILD_TIMESTAMP: now
     CFLAGS: /WX
     matrix:
         - BUILD_SHARED_LIBS: ON

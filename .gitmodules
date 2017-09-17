@@ -1,15 +1,12 @@
 [submodule "vendor/ubelt"]
 	path = vendor/ubelt
-	url = git@github.com:cosier/ubelt
-[submodule "vendor/libdb"]
-	path = vendor/libdb
-	url = git@github.com:cosier/berkeley_db.git
+	url = https://github.com/cosier/ubelt
 [submodule "vendor/nuklear"]
 	path = vendor/nuklear
 	url = https://github.com/vurtun/nuklear.git
 [submodule "vendor/glfw"]
 	path = vendor/glfw
-	url = git@github.com:cosier/glfw.git
+	url = https://github.com/cosier/glfw.git
 [submodule "vendor/sqlite"]
 	path = vendor/sqlite
-	url = git@github.com:cosier/sqlite-cmake.git
+	url = https://github.com/cosier/sqlite-cmake.git

@@ -5,8 +5,6 @@ ROOT=$( cd $BIN/../ && pwd )
 
 source $BIN/vars.sh
 
-$BIN/deps.sh
-
 # Ensure build dir exists and change directory
 mkdir -p $BUILD_DIR && cd $BUILD_DIR;
 

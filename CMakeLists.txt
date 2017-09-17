@@ -37,8 +37,9 @@ enable_testing ()
 include_directories(
   "${APP_ROOT}/src"
   "${APP_ROOT}/vendor/nuklear"
-  "${APP_ROOT}/vendor/glfw/include"
   "${APP_ROOT}/vendor/ubelt/src"
+  "${APP_ROOT}/vendor/glfw/include"
+  "${APP_ROOT}/vendor/sqlite/include"
 )
 
 # Lots of tests :-)
@@ -50,14 +51,13 @@ add_subdirectory("src/${APP_LIB_NAME}")
 # Our main executable sub project
 add_subdirectory("src/main")
 
-# Utility Belt library support
-add_subdirectory("vendor/ubelt")
-
 # UI and Rendering
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory("vendor/glfw")
+add_subdirectory("vendor/ubelt")
+add_subdirectory("vendor/sqlite")
 
 # Setup auto generation of version.h during build
 configure_file (

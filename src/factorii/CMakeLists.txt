@@ -45,6 +45,9 @@ target_link_libraries( ${APP_LIB_NAME}
   # Cross platform c utility belt
   ubeltx
 
+  # Data persistence
+  sqlite3
+
   # OpenGL toolkit
   ${OPENGL_gl_LIBRARY}
   ${OPENGL_glu_LIBRARY}

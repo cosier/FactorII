@@ -10,3 +10,6 @@
 [submodule "vendor/glfw"]
 	path = vendor/glfw
 	url = git@github.com:cosier/glfw.git
+[submodule "vendor/sqlite"]
+	path = vendor/sqlite
+	url = git@github.com:cosier/sqlite-cmake.git

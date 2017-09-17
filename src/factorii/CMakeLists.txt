@@ -26,8 +26,9 @@ endforeach( PATH )
 add_library(${APP_LIB_NAME} STATIC ${SRC_LIB})
 
 # Use Utility Belt in Shared library mode
-# add_library(ubeltx STATIC IMPORTED)
-# set_property(TARGET ${c_lib}  PROPERTY SHARED IMPORTED)
+add_library(sqlite3 STATIC IMPORTED)
+set_property(TARGET sqlite3  PROPERTY IMPORTED_LOCATION
+  ${APP_ROOT}/build/vendor/sqlite/libsqlite3.a)
 
 # Everybody needs curses
 find_library( ncurses_lib ncurses )

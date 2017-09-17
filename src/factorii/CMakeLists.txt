@@ -30,9 +30,6 @@ add_library(sqlite3 STATIC IMPORTED)
 set_property(TARGET sqlite3  PROPERTY IMPORTED_LOCATION
   ${APP_ROOT}/build/vendor/sqlite/libsqlite3.a)
 
-# Everybody needs curses
-find_library( ncurses_lib ncurses )
-
 find_package(OpenGL REQUIRED)
 
 if (APPLE)
@@ -52,10 +49,7 @@ target_link_libraries( ${APP_LIB_NAME}
   # OpenGL toolkit
   ${OPENGL_gl_LIBRARY}
   ${OPENGL_glu_LIBRARY}
-  glfw
-
-  # NCurses UI lib
-  ${ncurses_lib})
+  glfw)
 
 
 

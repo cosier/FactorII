@@ -5,7 +5,11 @@ project(${APP_LIB_NAME})
 set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wno-unused-variable")
+if(MSVC)
+  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX")
+else(CMAKE_COMPILER_IS_GNUCXX)
+  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wno-unused-variable")
+endif()
 
 
 # Glob'n all C source + headers under src/

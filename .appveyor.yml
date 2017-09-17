@@ -13,6 +13,7 @@ environment:
 matrix:
     fast_finish: true
 build_script:
+    - git submodule update --init --recursive
     - mkdir build
     - cd build
     - cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=%BUILD_SHARED_LIBS% ..

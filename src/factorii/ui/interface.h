@@ -11,9 +11,13 @@
 #include <time.h>
 #include <unistd.h>
 
-#include <GLFW/glfw3.h>
-// #include <OpenGL/glext.h>
+#ifdef __APPLE__
+#include <OpenGL/glext.h>
+#else
 #include <GL/glext.h>
+#endif
+
+#include <GLFW/glfw3.h>
 #include <factorii/options.h>
 #include <factorii/ui/nuk.h>
 

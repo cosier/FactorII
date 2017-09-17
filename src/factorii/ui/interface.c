@@ -15,7 +15,7 @@ static void fii_init(struct nk_context **pp_ctx, GLFWwindow **pp_win) {
     }
 
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-    glfwWindowHint(GLFW_ALPHA_MASK, GLFW_TRUE);
+    glfwWindowHint(GLFW_TRANSPARENT, GLFW_TRUE);
     // glTexParameteri(GL_NEAREST);
 
     win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", NULL, NULL);

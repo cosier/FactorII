@@ -6,8 +6,7 @@ BIN="$( cd  "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT=$( cd $BIN/../ && pwd )
 
 source $BIN/vars.sh
-DEFAULT_BUILD=debug
-BUILD_TYPE=${1:-debug}
+BUILD_TYPE=$(echo ${1:-debug} | awk '{ print tolower($0) }')
 EXE=$BUILD_DIR/${APP_EXE_NAME}_${BUILD_TYPE}
 
 if [ ! -f $EXE ]; then
@@ -25,6 +24,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
         rm -rf $TARGET_APP
     fi
 
-    cp -Rv $ROOT/assets/factorii.app $TARGET_APP
+    cp -R $ROOT/assets/factorii.app $TARGET_APP
     cp $EXE $BUILD_DIR/factorii_${BUILD_TYPE}.app/Contents/MacOS/fii
 fi

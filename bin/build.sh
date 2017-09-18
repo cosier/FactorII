@@ -39,6 +39,10 @@ echo -e " BUILD_REVISION:  $BUILD_REVISION "
 echo -e " BUILD_TIMESTAMP: $BUILD_TIMESTAMP"
 echo -e "-------------------------------------\n"
 
+if [ -f $BUILD_DIR/${APP_EXE_NAME}_${BUILD_TYPE} ]; then
+  rm $BUILD_DIR/${APP_EXE_NAME}_${BUILD_TYPE}
+fi
+
 # If Makefile doesn't exist, initiate cmake to generate it.
 if [[ ! -f $BUILD_DIR/Makefile ]]; then
   cmake \
@@ -58,4 +62,15 @@ if [ ! $? -eq 0 ]; then
   echo "Make failed"
   exit 1
 fi
+
+if [[ $(uname) == "Darwin" ]]; then
+  cp $BUILD_DIR/src/main/${APP_EXE_NAME}.app/Contents/MacOS/${APP_EXE_NAME} \
+  $BUILD_DIR/${APP_EXE_NAME}_${BUILD_TYPE}
+  $BIN/bundle.sh $BUILD_TYPE
+else
+  cp $BUILD_DIR/src/main/${APP_EXE_NAME} \
+  $BUILD_DIR/${APP_EXE_NAME}_${BUILD_TYPE}
+fi
+
+
 

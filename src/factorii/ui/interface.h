@@ -1,6 +1,11 @@
 #ifndef FII_UI_INTERFACE_H
 #define FII_UI_INTERFACE_H
 
+
+#ifdef UNIX_OS
+#include <unistd.h>
+#endif
+
 #include <limits.h>
 #include <math.h>
 #include <stdarg.h>
@@ -9,17 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <unistd.h>
 
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
-#else
-#include <GL/gl.h>
-#include <GL/glext.h>
-#endif
-
-#include <GLFW/glfw3.h>
+#include <factorii/gfx/gl.h>
 #include <factorii/options.h>
 #include <factorii/ui/nuk.h>
 

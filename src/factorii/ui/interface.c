@@ -14,7 +14,7 @@ static void fii_init(struct nk_context **pp_ctx, GLFWwindow **pp_win) {
         exit(1);
     }
 
-    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     glfwWindowHint(GLFW_TRANSPARENT, GLFW_TRUE);
     // glTexParameteri(GL_NEAREST);
 
@@ -38,7 +38,7 @@ void fii_interface(fii_options *opts) {
     struct nk_context *ctx = NULL;
     GLFWwindow *win = NULL;
 
-    int width = 0, height = 0;
+    int w = 0, h = 0;
 
     fii_init(&ctx, &win);
 
@@ -49,18 +49,22 @@ void fii_interface(fii_options *opts) {
     fii_colors_init();
     drag_start(win);
 
-    glfwGetWindowSize(win, &width, &height);
+    glfwGetWindowSize(win, &w, &h);
+    float width = (float)w, height = (float)h;
+
     glfwSetWindowSizeLimits(win, WINDOW_WIDTH, WINDOW_HEIGHT, 900, 800);
 
     /* struct nk_user_font font = fii_font(ctx, 20); */
     /* nk_style_set_font(ctx, &font); */
-
+    
     while (!glfwWindowShouldClose(win)) {
         /* Input */
         glfwWaitEvents();
 
         nk_glfw3_new_frame();
-        glfwGetWindowSize(win, &width, &height);
+        glfwGetWindowSize(win, &w, &h);
+        width = (float)w;
+        height = (float)h;
 
         fii_sidebar(win, ctx, width, height);
         fii_content(win, ctx, width, height);
@@ -69,12 +73,12 @@ void fii_interface(fii_options *opts) {
         // drag_apply(win);
 
         if (width < 800) {
-            glfwSetWindowSize(win, width + 30, 500);
+            glfwSetWindowSize(win, w + 30, 500);
         }
 
         /* Draw */
         {
-            glViewport(0, 0, width, height);
+            glViewport(0, 0, (GLsizei)width, (GLsizei)height);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glClearColor(0, 0, 0, 0.5);
 

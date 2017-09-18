@@ -1,12 +1,12 @@
 #include <factorii/ui/header.h>
 
-void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
+void fii_header(GLFWwindow *win, struct nk_context *ctx, float width) {
     struct nk_color black = nk_rgb(0, 0, 0);
     struct nk_color red = nk_rgb(255, 0, 0);
     struct nk_input *in = &ctx->input;
     struct nk_vec2 zero_padding = nk_vec2(0, 0);
     int flags = NK_WINDOW_NO_SCROLLBAR;
-    int header_height = 50;
+    float header_height = 50.0;
 
     nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
                              nk_style_item_color(CLR_white));
@@ -28,7 +28,7 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
 
     nk_style_push_vec2(ctx, &ctx->style.window.padding, zero_padding);
 
-    if (nk_begin(ctx, "AppHeader", nk_rect(0, 0, width, header_height),
+    if (nk_begin(ctx, "AppHeader", nk_rect(0.0, 0.0, width, header_height),
                  flags)) {
 
         // int mouse_down = in && in->mouse.buttons[NK_BUTTON_LEFT].down;
@@ -51,7 +51,7 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
         //     }
         // }
 
-        int sb_width = sidebar_width(width);
+        float sb_width = sidebar_width(width);
 
         struct nk_command_buffer *canvas = nk_window_get_canvas(ctx);
 
@@ -60,12 +60,12 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
         // nk_layout_space_push(
         //     ctx, nk_rect(sb_width, 0, width - sb_width, header_height));
         struct nk_rect bg_right =
-            nk_rect(sb_width, 0, width - sb_width, header_height);
+            nk_rect(sb_width, 0.0, width - sb_width, header_height);
 
-        struct nk_rect bg_left = nk_rect(0, 0, sb_width, header_height);
+        struct nk_rect bg_left = nk_rect(0.0, 0.0, sb_width, header_height);
 
-        nk_fill_rect(canvas, bg_right, 0, CLR_content);
-        nk_fill_rect(canvas, bg_left, 0, CLR_sidebar);
+        nk_fill_rect(canvas, bg_right, 0.0, CLR_content);
+        nk_fill_rect(canvas, bg_left, 0.0, CLR_sidebar);
 
         // Make space for the app title
         nk_layout_space_push(ctx, nk_rect(10, 5, 100, 40));

@@ -12,13 +12,14 @@ void fii_fonts_load(struct nk_context *ctx) {
     nk_glfw3_font_stash_begin(&atlas);
 
     char *font_path = APP_ROOT  "/vendor/nuklear/extra_font/Roboto-Bold.ttf";
-    FILE *font_fd = fopen(font_path, "rb");
+    /*FILE *font_fd = fopen(font_path, "rb");
 
     if (!font_fd) {
         util_error("failed to open: %s\n", font_path);
         exit(1);
-    }
-    int size = 24;
+    }*/
+
+    float size = 24;
     struct nk_font_config cfg = nk_font_config(size);
     cfg.oversample_h = 1;
     cfg.oversample_v = 1;
@@ -28,7 +29,7 @@ void fii_fonts_load(struct nk_context *ctx) {
     nk_style_set_font(ctx, &droid->handle);
 }
 
-struct nk_user_font fii_font(struct nk_context *ctx, int size) {
+struct nk_user_font fii_font(struct nk_context *ctx, float size) {
     struct nk_user_font font;
 
     font.height = size;

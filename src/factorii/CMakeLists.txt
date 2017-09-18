@@ -29,9 +29,6 @@ endforeach( PATH )
 add_library(${APP_LIB_NAME} STATIC ${SRC_LIB})
 
 # Use Utility Belt in Shared library mode
-add_library(sqlite3 STATIC IMPORTED)
-set_property(TARGET sqlite3  PROPERTY IMPORTED_LOCATION
-  ${APP_ROOT}/build/vendor/sqlite/libsqlite3.a)
 
 # add_library(freetype2 STATIC IMPORTED)
 # set_property(TARGET freetype2  PROPERTY LOCATION
@@ -45,10 +42,14 @@ find_package(OpenGL REQUIRED)
 if (APPLE)
 endif()
 
+if(UNIX)
+set(math_lib "m")
+endif()
+
 # Link Library support: lib${APP_LIB_NAME}
 target_link_libraries( ${APP_LIB_NAME}
   # C Math Lib
-  m
+  ${math_lib}
 
   # Cross platform c utility belt
   ubeltx

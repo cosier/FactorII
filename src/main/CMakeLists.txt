@@ -5,7 +5,9 @@ project(${APP_EXE_NAME})
 set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
+if(UNIX)
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra")
+endif()
 
 # Main executable has a single file
 SET ( SRC_MAIN main.c )

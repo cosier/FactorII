@@ -10,18 +10,18 @@ static void init() {
   sidebar_initialized = 1;
 }
 
-void fii_sidebar(GLFWwindow *win, struct nk_context *ctx, int win_width,
-                 int win_height) {
+void fii_sidebar(GLFWwindow *win, struct nk_context *ctx, float win_width,
+                 float win_height) {
     init();
 
-    float ratio;
-    int width, height;
+    //float ratio;
+    float width, height;
 
     // struct nk_command_buffer *out = NULL;
 
     nk_style_push_style_item(ctx, &ctx->style.window.fixed_background,
                              nk_style_item_color(CLR_sidebar));
-    struct nk_rect sidebar_rect = nk_rect(0, 50, sidebar_width(win_width), win_height);
+    struct nk_rect sidebar_rect = nk_rect(0.0, 50.0, sidebar_width(win_width), win_height);
 
     if (nk_begin(ctx, "Sidebar", sidebar_rect, 0)) {
       width = 200 || sidebar_rect.w;

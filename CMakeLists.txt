@@ -1,16 +1,33 @@
 cmake_minimum_required(VERSION 3.6)
 
 set( APP_LIB_NAME factorii)
-set( APP_EXE_NAME fii)
-set( APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
-
 project(${APP_LIB_NAME})
 
+set( APP_EXE_NAME fii)
 set (APP_VERSION_MAJOR 0)
 set (APP_VERSION_MINOR 1)
 set (APP_VERSION_PATCH 0)
 set (APP_VERSION_BUILD $ENV{BUILD_REVISION})
 set (APP_VERSION_DATE  $ENV{BUILD_TIMESTAMP})
+set( APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)
+add_definitions(-DGL_GLEXT_PROTOTYPES=1)
+add_definitions(-DGL_PROTOTYPES=1)
+
+if(MSVC)
+add_definitions(-DWINDOWS_OS)
+elseif(APPLE)
+add_definitions(-DAPPLE_OS)
+else()
+add_definitions(-DLINUX_OS)
+endif()
+
+if (UNIX)
+add_definitions(-DUNIX_OS)
+endif()
+
 
 if ("$ENV{BUILD_REVISION}" STREQUAL "")
   message (STATUS "BUILD_REVISION not specified in ENV")

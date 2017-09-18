@@ -199,7 +199,7 @@ NK_API void nk_glfw3_mouse_button_callback(GLFWwindow *window, int button,
         double dt = glfwGetTime() - glfw.last_button_click;
         if (dt > NK_GLFW_DOUBLE_CLICK_LO && dt < NK_GLFW_DOUBLE_CLICK_HI) {
             glfw.is_double_click_down = nk_true;
-            glfw.double_click_pos = nk_vec2(x, y);
+            glfw.double_click_pos = nk_vec2((float)x, (float)y);
         }
         glfw.last_button_click = glfwGetTime();
     } else {
@@ -364,8 +364,8 @@ NK_API void nk_glfw3_new_frame(void) {
     nk_input_button(ctx, NK_BUTTON_RIGHT, (int)x, (int)y,
                     glfwGetMouseButton(win, GLFW_MOUSE_BUTTON_RIGHT) ==
                         GLFW_PRESS);
-    nk_input_button(ctx, NK_BUTTON_DOUBLE, glfw.double_click_pos.x,
-                    glfw.double_click_pos.y, glfw.is_double_click_down);
+    nk_input_button(ctx, NK_BUTTON_DOUBLE, (int)glfw.double_click_pos.x,
+                    (int)glfw.double_click_pos.y, glfw.is_double_click_down);
     nk_input_scroll(ctx, glfw.scroll);
     nk_input_end(&glfw.ctx);
     glfw.text_len = 0;

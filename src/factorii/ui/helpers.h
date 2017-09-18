@@ -13,7 +13,7 @@ void drag_stop();
 void drag_apply(GLFWwindow *win);
 int is_dragging();
 
-int sidebar_width(int win_width);
-int content_width(int win_width);
+float sidebar_width(float win_width);
+float content_width(float win_width);
 
 #endif

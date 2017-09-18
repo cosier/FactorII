@@ -34,18 +34,18 @@ void drag_apply(GLFWwindow *win) {
         delta_y = cy - cursor_pos_y;
 
         glfwGetWindowPos(win, &x, &y);
-        glfwSetWindowPos(win, x + delta_x, y + delta_y);
+        glfwSetWindowPos(win, x + (int)delta_x, y + (int)delta_y);
     }
 }
 
 int is_dragging() { return window_drag_active; }
 
-int sidebar_width(int win_width) {
-    int w = win_width < 200 ? win_width : 230;
+float sidebar_width(float win_width) {
+    float w = win_width < (float)200.0 ? win_width : (float)230.0;
     return w;
 }
 
-int content_width(int win_width) {
+float content_width(float win_width) {
     // content is the entire width minus the sidebar
     return win_width - sidebar_width(win_width);
 }

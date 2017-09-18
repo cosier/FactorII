@@ -5,7 +5,9 @@ project(app-tests)
 set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
+if(NOT MSVC)
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
+endif()
 
 file(GLOB_RECURSE HELPER_LIB helpers/*.c helpers/*.h)
 

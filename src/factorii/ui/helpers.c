@@ -6,7 +6,7 @@ static int window_drag_active = 0;
 
 void error_callback(int e, const char *d) {
     // handle errors
-    util_error("Error %d: %s\n", e, d);
+    ub_error("Error %d: %s\n", e, d);
 }
 
 void drag_start(GLFWwindow *win) {

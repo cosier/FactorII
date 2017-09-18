@@ -13,6 +13,7 @@ Testing
 vendor
 vendor/build
 version.h
+build.h
 
 
 # Rtags

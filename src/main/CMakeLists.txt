@@ -28,7 +28,7 @@ if (APPLE)
 set_target_properties(${APP_EXE_NAME} PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Factorii")
 set_target_properties(${APP_EXE_NAME} PROPERTIES
                         RESOURCE ${ICON_ICNS}
-                        MACOSX_BUNDLE_SHORT_VERSION_STRING ${APP_VERSION}
+                        MACOSX_BUNDLE_SHORT_VERSION_STRING ${APP_VERSION_BUILD}
                         MACOSX_BUNDLE_LONG_VERSION_STRING ${APP_VERSION_FULL}
                         MACOSX_BUNDLE_ICON_FILE ${ICON_ICNS}
                         MACOSX_BUNDLE_INFO_PLIST "${APP_ROOT}/CMake/MacOSXBundleInfo.plist.in")
@@ -46,5 +46,6 @@ target_link_libraries( ${APP_EXE_NAME}
   ${APP_LIB_NAME})
 
 install(TARGETS ${APP_EXE_NAME}
+  BUNDLE DESTINATION ${APP_ROOT}/build COMPONENT Runtime
   RUNTIME DESTINATION bin)
 

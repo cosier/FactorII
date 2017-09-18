@@ -1,6 +1,0 @@
-#define APP_VERSION_MAJOR "0"
-#define APP_VERSION_MINOR "1"
-#define APP_VERSION_PATCH "0"
-#define APP_VERSION_BUILD ""
-#define APP_VERSION_DATE  ""
-#define APP_ROOT          "C:/Users/Bailey/Documents/factorii"

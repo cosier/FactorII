@@ -7,7 +7,7 @@ fii_options *fii_options_create(char *db) {
         int db_buf_size = sizeof(char *) * 1024;
         db = calloc(db_buf_size, sizeof(char *));
 
-        snprintf(db, db_buf_size, "%s/.fii.db", util_home_dir());
+        snprintf(db, db_buf_size, "%s/.fii.db", ub_home_dir());
     }
 
     opts->db_path = db;

@@ -6,10 +6,19 @@ set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
 if(MSVC)
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX")
-else(CMAKE_COMPILER_IS_GNUCXX)
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wno-unused-variable -Wno-unused-parameter -Wno-unused-but-set-variable")
+  set(WFLAGS "/WX")
+else(UNIX)
+  set(WFLAGS "-Werror -Wall -Wextra")
+  set(WFLAGS "${WFLAGS} -Wno-unused-variable")
+  set(WFLAGS "${WFLAGS} -Wno-unused-parameter")
+
+  if (APPLE)
+  else()
+    set(WFLAGS "${WFLAGS} -Wno-unused-but-set-variable")
+  endif()
 endif()
+
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WFLAGS}")
 
 # Glob'n all C source + headers under src/
 #
@@ -28,8 +37,6 @@ endforeach( PATH )
 # Build project core as a library
 add_library(${APP_LIB_NAME} STATIC ${SRC_LIB})
 
-# Use Utility Belt in Shared library mode
-
 # add_library(freetype2 STATIC IMPORTED)
 # set_property(TARGET freetype2  PROPERTY LOCATION
   # ${APP_ROOT}/vendor/build/libfreetype.a)
@@ -39,11 +46,8 @@ find_library( ncurses_lib ncurses )
 
 find_package(OpenGL REQUIRED)
 
-if (APPLE)
-endif()
-
 if(UNIX)
-set(math_lib "m")
+  set(math_lib "m")
 endif()
 
 # Link Library support: lib${APP_LIB_NAME}

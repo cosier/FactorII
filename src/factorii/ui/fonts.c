@@ -15,7 +15,7 @@ void fii_fonts_load(struct nk_context *ctx) {
     /*FILE *font_fd = fopen(font_path, "rb");
 
     if (!font_fd) {
-        util_error("failed to open: %s\n", font_path);
+        ub_error("failed to open: %s\n", font_path);
         exit(1);
     }*/
 

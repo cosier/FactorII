@@ -19,7 +19,6 @@ static void fii_init(struct nk_context **pp_ctx, GLFWwindow **pp_win) {
     // glTexParameteri(GL_NEAREST);
 
     win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", NULL, NULL);
-
     glfwMakeContextCurrent(win);
 
     // Place on secondary monitor for development purposes.
@@ -51,9 +50,10 @@ void fii_interface(fii_options *opts) {
     drag_start(win);
 
     glfwGetWindowSize(win, &width, &height);
-    glEnable(GL_ALPHA_TEST);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL);
+    glfwSetWindowSizeLimits(win, WINDOW_WIDTH, WINDOW_HEIGHT, 900, 800);
+
+    /* struct nk_user_font font = fii_font(ctx, 20); */
+    /* nk_style_set_font(ctx, &font); */
 
     while (!glfwWindowShouldClose(win)) {
         /* Input */
@@ -63,17 +63,20 @@ void fii_interface(fii_options *opts) {
         glfwGetWindowSize(win, &width, &height);
 
         fii_sidebar(win, ctx, width, height);
-        // fii_content(win, ctx, width, height);
+        fii_content(win, ctx, width, height);
         fii_header(win, ctx, width);
 
-        drag_apply(win);
+        // drag_apply(win);
+
+        if (width < 800) {
+            glfwSetWindowSize(win, width + 30, 500);
+        }
 
         /* Draw */
         {
-            float bg[4];
             glViewport(0, 0, width, height);
-            glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(bg[0], bg[1], bg[2], 0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClearColor(0, 0, 0, 0.5);
 
             nk_glfw3_render(NK_ANTI_ALIASING_ON);
             glfwSwapBuffers(win);

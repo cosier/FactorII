@@ -11,7 +11,6 @@ else(CMAKE_COMPILER_IS_GNUCXX)
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wno-unused-variable")
 endif()
 
-
 # Glob'n all C source + headers under src/
 #
 # Below we iterate and remove any tmp files that
@@ -34,6 +33,13 @@ add_library(sqlite3 STATIC IMPORTED)
 set_property(TARGET sqlite3  PROPERTY IMPORTED_LOCATION
   ${APP_ROOT}/build/vendor/sqlite/libsqlite3.a)
 
+# add_library(freetype2 STATIC IMPORTED)
+# set_property(TARGET freetype2  PROPERTY LOCATION
+  # ${APP_ROOT}/vendor/build/libfreetype.a)
+
+# Everybody needs curses
+find_library( ncurses_lib ncurses )
+
 find_package(OpenGL REQUIRED)
 
 if (APPLE)
@@ -49,6 +55,7 @@ target_link_libraries( ${APP_LIB_NAME}
 
   # Data persistence
   sqlite3
+  # freetype
 
   # OpenGL toolkit
   ${OPENGL_gl_LIBRARY}

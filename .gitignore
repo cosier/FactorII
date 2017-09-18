@@ -4,7 +4,11 @@
 *.orig
 *DS_Store
 *.#*
+.vs
+.idea
+cmake-build*
 Testing
+
 
 vendor
 vendor/build

@@ -13,11 +13,13 @@ set (APP_VERSION_BUILD $ENV{BUILD_REVISION})
 set (APP_VERSION_DATE  $ENV{BUILD_TIMESTAMP})
 
 if ("$ENV{BUILD_REVISION}" STREQUAL "")
-  message (FATAL_ERROR "BUILD_REVISION not specified in ENV")
+  message (STATUS "BUILD_REVISION not specified in ENV")
+  set(ENV{BUILD_REVISION} master)
 endif()
 
 if ("$ENV{BUILD_TIMESTAMP}" STREQUAL "")
-  message (FATAL_ERROR "BUILD_TIMESTAMP not specified in ENV")
+  message (STATUS "BUILD_TIMESTAMP not specified in ENV")
+  set(ENV{BUILD_TIMESTAMP} now)
 endif()
 
 # Add compile time definitions for debug optimizations
@@ -31,7 +33,6 @@ endif()
 set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall")
 enable_testing ()
 
 include_directories(
@@ -40,6 +41,7 @@ include_directories(
   "${APP_ROOT}/vendor/ubelt/src"
   "${APP_ROOT}/vendor/glfw/include"
   "${APP_ROOT}/vendor/sqlite/include"
+  "${APP_ROOT}/vendor/freetype2/include"
 )
 
 # Lots of tests :-)
@@ -61,6 +63,6 @@ add_subdirectory("vendor/sqlite")
 
 # Setup auto generation of version.h during build
 configure_file (
-  "${APP_ROOT}/src/${APP_LIB_NAME}/version.h.in"
-  "${APP_ROOT}/src/${APP_LIB_NAME}/version.h"
+  "${APP_ROOT}/src/${APP_LIB_NAME}/build.h.in"
+  "${APP_ROOT}/src/${APP_LIB_NAME}/build.h"
 )

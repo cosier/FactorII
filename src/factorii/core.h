@@ -6,6 +6,6 @@
 
 #include "factorii/options.h"
 #include "factorii/ui/interface.h"
-#include "factorii/version.h"
+#include "factorii/build.h"
 
 #endif

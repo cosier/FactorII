@@ -27,29 +27,29 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
     nk_style_push_float(ctx, &ctx->style.button.border, 0);
 
     nk_style_push_vec2(ctx, &ctx->style.window.padding, zero_padding);
-    // fii_font_size(20);
 
     if (nk_begin(ctx, "AppHeader", nk_rect(0, 0, width, header_height),
                  flags)) {
 
-        int mouse_down = in && in->mouse.buttons[NK_BUTTON_LEFT].down;
-        int mouse_inside = mouse_down && nk_input_has_mouse_click_down_in_rect(
-                                             in, NK_BUTTON_LEFT,
-                                             ctx->current->bounds, nk_true);
+        // int mouse_down = in && in->mouse.buttons[NK_BUTTON_LEFT].down;
+        // int mouse_inside = mouse_down &&
+        // nk_input_has_mouse_click_down_in_rect(
+        //                                      in, NK_BUTTON_LEFT,
+        //                                      ctx->current->bounds, nk_true);
 
-        if (mouse_inside) {
-            fii_cursor_move(win);
-        } else {
-            fii_cursor_arrow(win);
-        }
+        // if (mouse_inside) {
+        //     fii_cursor_move(win);
+        // } else {
+        //     fii_cursor_arrow(win);
+        // }
 
-        if (mouse_down && mouse_inside) {
-            drag_start(win);
-        } else {
-            if (is_dragging()) {
-                drag_stop();
-            }
-        }
+        // if (mouse_down && mouse_inside) {
+        //     drag_start(win);
+        // } else {
+        //     if (is_dragging()) {
+        //         drag_stop();
+        //     }
+        // }
 
         int sb_width = sidebar_width(width);
 
@@ -69,14 +69,10 @@ void fii_header(GLFWwindow *win, struct nk_context *ctx, int width) {
 
         // Make space for the app title
         nk_layout_space_push(ctx, nk_rect(10, 5, 100, 40));
-        nk_label(ctx, "Factorii", NK_TEXT_LEFT);
+        // nk_label(ctx, "Factorii", NK_TEXT_LEFT);
 
         // Make space for the X button
         nk_layout_space_push(ctx, nk_rect(width - 30, 5, 20, 20));
-
-        if (nk_button_label(ctx, "x")) {
-            fii_quit();
-        }
     }
 
     // nk_window_set_focus(ctx, "AppHeader");

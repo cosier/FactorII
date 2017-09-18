@@ -8,7 +8,7 @@ set( CMAKE_C_STANDARD 11 )
 if(MSVC)
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX")
 else(CMAKE_COMPILER_IS_GNUCXX)
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wno-unused-variable")
+  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wno-unused-variable -Wno-unused-parameter -Wno-unused-but-set-variable")
 endif()
 
 # Glob'n all C source + headers under src/

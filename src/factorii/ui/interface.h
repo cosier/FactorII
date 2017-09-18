@@ -12,8 +12,10 @@
 #include <unistd.h>
 
 #ifdef __APPLE__
+#include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
 #else
+#include <GL/gl.h>
 #include <GL/glext.h>
 #endif
 

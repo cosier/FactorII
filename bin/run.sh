@@ -15,6 +15,8 @@ fi
 D=${D:-${DISPLAY}}
 echo "DISPLAY=$D"
 
-CMD="$EXE_BUILD $@"
+BUILD_TYPE=${BUILD_TYPE:-_debug}
+
+CMD="${ROOT}/build/${APP_EXE_NAME}${BUILD_TYPE} $@"
 echo $CMD
 DISPLAY=$D $CMD

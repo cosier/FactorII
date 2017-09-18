@@ -6,7 +6,7 @@ include(Utils)
 
 # This project uses C11 Standard
 set( CMAKE_C_STANDARD 11 )
-set( CODE_SIGN_IDENTITY "Bailey Cosier")
+set( CODE_SIGN_IDENTITY "factorii")
 
 # Treat all warnings as intense errors.
 if(UNIX)
@@ -28,9 +28,9 @@ endif()
 add_executable(${APP_EXE_NAME} WIN32 MACOSX_BUNDLE ${ICON} ${SRC_MAIN})
 
 if (APPLE)
-set_target_properties(${APP_EXE_NAME} PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Factorii")
 set_target_properties("${APP_EXE_NAME}" PROPERTIES
                         RESOURCE "${ICON_ICNS}"
+                        MACOSX_BUNDLE_BUNDLE_NAME "Factorii"
                         MACOSX_BUNDLE_SHORT_VERSION_STRING "${APP_VERSION_BUILD}"
                         MACOSX_BUNDLE_LONG_VERSION_STRING "${APP_VERSION_FULL}"
                         MACOSX_BUNDLE_SIGNATURE "????"
@@ -53,11 +53,6 @@ install(TARGETS ${APP_EXE_NAME}
   BUNDLE DESTINATION ${APP_ROOT}/build
   COMPONENT Runtime
   RUNTIME DESTINATION bin)
-
-# install(CODE
-#   "include(BundleUtilities)
-#   fixup_bundle(${APP_EXE_NAME} \"\" \"\")"
-#   COMPONENT Runtime)
 
 if (APPLE)
   set(APP_BUNDLE_PATH "${APP_ROOT}/build/src/main/fii.app")

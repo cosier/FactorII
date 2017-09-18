@@ -1,5 +1,8 @@
 #ifndef UI_FONTS_H
 #define UI_FONTS_H
+#ifdef WINDOWS_OS
+#include <Windows.h>
+#endif
 #include <factorii/ui/nuk.h>
 #include <stdio.h>
 #include <ubelt/utils.h>

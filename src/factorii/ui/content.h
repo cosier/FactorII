@@ -1,7 +1,7 @@
 #ifndef UI_CONTENT_H
 #define UI_CONTENT_H
 
-#include <GLFW/glfw3.h>
+#include <factorii/gfx/gl.h>
 #include <factorii/ui/colors.h>
 #include <factorii/ui/helpers.h>
 #include <factorii/ui/nuk.h>

@@ -1,10 +1,10 @@
 #ifndef UI_HELPERS_H
 #define UI_HELPERS_H
 
-#include <GLFW/glfw3.h>
+#include <factorii/gfx/gl.h>
+#include <ubelt/utils.h>
 #include <assert.h>
 #include <limits.h>
-#include <ubelt/utils.h>
 
 void error_callback(int e, const char *d);
 

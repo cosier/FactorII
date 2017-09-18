@@ -15,7 +15,7 @@ static void fii_init(struct nk_context **pp_ctx, GLFWwindow **pp_win) {
     }
 
     glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
-    glfwWindowHint(GLFW_TRANSPARENT, GLFW_TRUE);
+    glfwWindowHint(GLFW_TRANSPARENT, GLFW_FALSE);
     // glTexParameteri(GL_NEAREST);
 
     win = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Factorii", NULL, NULL);
@@ -52,7 +52,7 @@ void fii_interface(fii_options *opts) {
     glfwGetWindowSize(win, &w, &h);
     float width = (float)w, height = (float)h;
 
-    glfwSetWindowSizeLimits(win, WINDOW_WIDTH, WINDOW_HEIGHT, 900, 800);
+    // glfwSetWindowSizeLimits(win, WINDOW_WIDTH, WINDOW_HEIGHT, 900, 800);
 
     /* struct nk_user_font font = fii_font(ctx, 20); */
     /* nk_style_set_font(ctx, &font); */

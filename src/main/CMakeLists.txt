@@ -54,22 +54,4 @@ install(TARGETS ${APP_EXE_NAME}
   COMPONENT Runtime
   RUNTIME DESTINATION bin)
 
-if (APPLE)
-  set(APP_BUNDLE_PATH "${APP_ROOT}/build/src/main/fii.app")
-  set(APP_BUNDLE_EXE "${APP_BUNDLE_PATH}/Contents/MacOS/fii")
-  set(APP_TARGET "${APP_BUNDLE_EXE}")
-else()
-  set(APP_TARGET ${APP_ROOT}/build/src/main/${APP_EXE_NAME})
-endif()
 
-message(STATUS "APP_TARGET: ${APP_TARGET}")
-
-if (UNIX)
-add_custom_command(TARGET ${APP_EXE_NAME}
-  POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${APP_TARGET} ${APP_ROOT}/build/)
-endif()
-
-if (APPLE)
-  add_custom_command(TARGET ${APP_EXE_NAME}
-    POST_BUILD COMMAND ${APP_ROOT}/bin/bundle.sh ${CMAKE_BUILD_TYPE})
-endif()

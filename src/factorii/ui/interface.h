@@ -28,7 +28,7 @@
 #include <factorii/ui/helpers.h>
 #include <factorii/ui/sidebar.h>
 
-#define WINDOW_WIDTH 550
+#define WINDOW_WIDTH 1050
 #define WINDOW_HEIGHT 500
 
 #define UNUSED(a) (void)a

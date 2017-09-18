@@ -64,8 +64,10 @@ endif()
 
 message(STATUS "APP_TARGET: ${APP_TARGET}")
 
+if (UNIX)
 add_custom_command(TARGET ${APP_EXE_NAME}
   POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${APP_TARGET} ${APP_ROOT}/build/)
+endif()
 
 if (APPLE)
   add_custom_command(TARGET ${APP_EXE_NAME}

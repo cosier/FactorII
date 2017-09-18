@@ -72,10 +72,6 @@ void fii_interface(fii_options *opts) {
 
         // drag_apply(win);
 
-        if (width < 800) {
-            glfwSetWindowSize(win, w + 30, 500);
-        }
-
         /* Draw */
         {
             glViewport(0, 0, (GLsizei)width, (GLsizei)height);

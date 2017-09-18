@@ -9,8 +9,14 @@ set (APP_VERSION_MINOR 1)
 set (APP_VERSION_PATCH 0)
 set (APP_VERSION_BUILD $ENV{BUILD_REVISION})
 set (APP_VERSION_DATE  $ENV{BUILD_TIMESTAMP})
-set (APP_VERSION_FULL "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}:${APP_VERSION_BUILD}")
+set (APP_VERSION_FULL
+  "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}:${APP_VERSION_BUILD}")
+
 set( APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${APP_ROOT}/CMake/modules/")
+
+
+set( CMAKE_C_STANDARD 11 )
 
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)
@@ -42,13 +48,10 @@ endif()
 
 # Add compile time definitions for debug optimizations
 if ("$ENV{CMAKE_BUILD_TYPE}" STREQUAL "debug")
-  add_definitions(-D_DEBUG_)
+  add_definitions(-DDEBUG)
 else()
-  add_definitions(-D_DEBUG_)
+  add_definitions(-DDEBUG)
 endif()
-
-# This project uses C11 Standard
-set( CMAKE_C_STANDARD 11 )
 
 # Treat all warnings as intense errors.
 enable_testing ()
